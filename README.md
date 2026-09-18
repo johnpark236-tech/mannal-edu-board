@@ -1,4 +1,4 @@
-# mannal-edu-board
+# AI 천안 만날 학습 동아리 게시판
 
 Padlet과 유사한 가로형 교육 게시판을 GitHub Pages + Google Drive/Sheets + Apps Script로 구현한 MVP입니다.
 
