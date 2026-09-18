@@ -34,7 +34,6 @@
       <label>내용<textarea id="content" maxlength="3000" rows="7" placeholder="내용을 입력하세요"></textarea></label>
       <label>링크(선택)<input id="linkUrl" type="url" placeholder="https://..." /></label>
       <label>파일(선택, 최대 5MB)<input id="fileInput" type="file" /></label>
-      <label>수업 코드<input id="classCode" type="password" required placeholder="선생님이 알려준 코드" /></label>
       <p class="note">제출 즉시 공개됩니다. 교사 승인 단계가 없습니다.</p>
       <div class="form-actions"><button type="button" class="ghost" data-close="postDialog">취소</button><button id="submitPostBtn" type="submit" class="primary">바로 게시</button></div>
     </form>
@@ -46,7 +45,6 @@
       <form id="commentForm" class="comment-form">
         <input id="commentAuthor" maxlength="30" required placeholder="이름/별명" />
         <input id="commentText" maxlength="500" required placeholder="댓글 입력" />
-        <input id="commentClassCode" type="password" required placeholder="수업 코드" />
         <button class="primary" type="submit">댓글 등록</button>
       </form>
     </article>
@@ -56,9 +54,10 @@
       boardTitle: "AI 천안 만날 학습 동아리 게시판",
       apiUrl: "https://script.google.com/macros/s/AKfycbyCzexMVfd7rbwNjLjR0h4MKnmASLd34cEvYuTDVTSJpLDOP2ax-cWPSWIFLa4AXU14/exec",
       categories: ["교안_참고자료","프로그램","실습자료","실습1-교육계획안","실습2-인포그래픽","실습3-아이스브레이킹","실습4-수노음악"],
-      maxUploadMB: 5
+      maxUploadMB: 5,
+      classCode: "CHANGE_ME_2026"
     };
   </script>
-  <script src="./app.js?v=20260918-2002"></script>
+  <script src="./app.js?v=20260918-2010"></script>
 </body>
 </html>
