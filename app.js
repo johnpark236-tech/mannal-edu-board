@@ -46,7 +46,7 @@ async function submitPost(e){
   try{
     const file=$("#fileInput").files[0];
     if(file&&file.size>CFG.maxUploadMB*1024*1024) throw new Error(`파일은 ${CFG.maxUploadMB}MB 이하만 가능합니다.`);
-    const payload={action:"createPost",category:$("#category").value,author:$("#author").value.trim(),title:$("#title").value.trim(),content:$("#content").value.trim(),linkUrl:$("#linkUrl").value.trim(),classCode:$("#classCode").value,fileName:file?file.name:"",mimeType:file?file.type:"",fileBase64:file?await fileToBase64(file):""};
+    const payload={action:"createPost",category:$("#category").value,author:$("#author").value.trim(),title:$("#title").value.trim(),content:$("#content").value.trim(),linkUrl:$("#linkUrl").value.trim(),classCode:CFG.classCode||"",fileName:file?file.name:"",mimeType:file?file.type:"",fileBase64:file?await fileToBase64(file):""};
     await postNoCors(payload); $("#postDialog").close(); status("게시 중... 잠시 후 자동 반영됩니다."); setTimeout(loadPosts,2200);
   }catch(e){alert(e.message);}finally{btn.disabled=false;btn.textContent="바로 게시";}
 }
@@ -58,7 +58,7 @@ async function openDetail(id){
 }
 async function submitComment(e){
   e.preventDefault();if(!state.selectedPost)return;
-  try{await postNoCors({action:"createComment",postId:state.selectedPost.id,author:$("#commentAuthor").value.trim(),text:$("#commentText").value.trim(),classCode:$("#commentClassCode").value});$("#commentForm").reset();setTimeout(()=>openDetail(state.selectedPost.id),1800);setTimeout(loadPosts,2000);}catch(e){alert(e.message);}
+  try{await postNoCors({action:"createComment",postId:state.selectedPost.id,author:$("#commentAuthor").value.trim(),text:$("#commentText").value.trim(),classCode:CFG.classCode||""});$("#commentForm").reset();setTimeout(()=>openDetail(state.selectedPost.id),1800);setTimeout(loadPosts,2000);}catch(e){alert(e.message);}
 }
 function init(){
   document.title=CFG.boardTitle;$("#boardTitle").textContent=CFG.boardTitle;$("#category").innerHTML=CFG.categories.map(c=>`<option>${esc(c)}</option>`).join("");
