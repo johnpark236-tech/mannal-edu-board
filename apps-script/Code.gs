@@ -1,15 +1,13 @@
 const SETTINGS = {
-  SPREADSHEET_ID: 'PASTE_GOOGLE_SHEET_ID',
-  DRIVE_FOLDER_ID: 'PASTE_GOOGLE_DRIVE_FOLDER_ID',
-  CLASS_CODE: 'CHANGE_ME_2026',
+  SPREADSHEET_ID: '19VX-pjaiYJvDxKYxY3W_Dt6zJAm9MKBvpHh6NhqeaAc',
+  DRIVE_FOLDER_ID: '1rkh8Mkgp1g7IUBVkrzAmKr6pAt7qBklj',
   POSTS_SHEET: 'Posts',
   COMMENTS_SHEET: 'Comments'
 };
 function setup(){const ss=SpreadsheetApp.openById(SETTINGS.SPREADSHEET_ID);ensureSheet_(ss,SETTINGS.POSTS_SHEET,['id','category','author','title','content','linkUrl','fileName','fileUrl','createdAt']);ensureSheet_(ss,SETTINGS.COMMENTS_SHEET,['id','postId','author','text','createdAt']);}
 function ensureSheet_(ss,name,headers){let sh=ss.getSheetByName(name);if(!sh)sh=ss.insertSheet(name);if(sh.getLastRow()===0)sh.appendRow(headers);return sh;}
 function doGet(e){try{setup();const action=String((e.parameter&&e.parameter.action)||'listPosts');let payload;if(action==='listPosts')payload=listPosts_();else if(action==='listComments')payload=listComments_(e.parameter.postId||'');else payload={ok:false,error:'Unknown action'};return output_(payload,e.parameter&&e.parameter.callback);}catch(err){return output_({ok:false,error:String(err.message||err)},e.parameter&&e.parameter.callback);}}
-function doPost(e){try{setup();const p=e.parameter||{};assertCode_(p.classCode);let result;if(p.action==='createPost')result=createPost_(p);else if(p.action==='createComment')result=createComment_(p);else result={ok:false,error:'Unknown action'};return output_(result);}catch(err){return output_({ok:false,error:String(err.message||err)});}}
-function assertCode_(code){if(!code||String(code)!==String(SETTINGS.CLASS_CODE))throw new Error('수업 코드가 올바르지 않습니다.');}
+function doPost(e){try{setup();const p=e.parameter||{};let result;if(p.action==='createPost')result=createPost_(p);else if(p.action==='createComment')result=createComment_(p);else result={ok:false,error:'Unknown action'};return output_(result);}catch(err){return output_({ok:false,error:String(err.message||err)});}}
 function createPost_(p){const ss=SpreadsheetApp.openById(SETTINGS.SPREADSHEET_ID),sh=ss.getSheetByName(SETTINGS.POSTS_SHEET),id=Utilities.getUuid();let fileUrl='',fileName=String(p.fileName||'').trim();if(p.fileBase64&&fileName){const bytes=Utilities.base64Decode(p.fileBase64),blob=Utilities.newBlob(bytes,p.mimeType||'application/octet-stream',fileName),folder=DriveApp.getFolderById(SETTINGS.DRIVE_FOLDER_ID),file=folder.createFile(blob);try{file.setSharing(DriveApp.Access.ANYONE_WITH_LINK,DriveApp.Permission.VIEW);}catch(_){}fileUrl=file.getUrl();}const createdAt=Utilities.formatDate(new Date(),Session.getScriptTimeZone()||'Asia/Seoul','yyyy-MM-dd HH:mm');sh.appendRow([id,String(p.category||''),String(p.author||''),String(p.title||''),String(p.content||''),String(p.linkUrl||''),fileName,fileUrl,createdAt]);return {ok:true,id:id};}
 function createComment_(p){if(!p.postId)throw new Error('postId가 없습니다.');const ss=SpreadsheetApp.openById(SETTINGS.SPREADSHEET_ID),sh=ss.getSheetByName(SETTINGS.COMMENTS_SHEET),id=Utilities.getUuid(),createdAt=Utilities.formatDate(new Date(),Session.getScriptTimeZone()||'Asia/Seoul','yyyy-MM-dd HH:mm');sh.appendRow([id,String(p.postId),String(p.author||''),String(p.text||''),createdAt]);return {ok:true,id:id};}
 function listPosts_(){const ss=SpreadsheetApp.openById(SETTINGS.SPREADSHEET_ID),posts=rowsAsObjects_(ss.getSheetByName(SETTINGS.POSTS_SHEET)),cs=rowsAsObjects_(ss.getSheetByName(SETTINGS.COMMENTS_SHEET)),count={};cs.forEach(c=>count[c.postId]=(count[c.postId]||0)+1);posts.forEach(p=>p.commentCount=count[p.id]||0);posts.reverse();return {ok:true,posts:posts};}
