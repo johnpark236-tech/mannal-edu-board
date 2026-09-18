@@ -1,1 +1,54 @@
-
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>천안시민AI강사양성 교육 게시판</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">교육자료 · 실습 · 학생공유</div>
+      <h1 id="boardTitle">천안시민AI강사양성</h1>
+    </div>
+    <div class="actions">
+      <input id="searchInput" class="search" placeholder="자료 검색" />
+      <button id="refreshBtn" class="ghost">새로고침</button>
+      <button id="openPostBtn" class="primary">+ 게시</button>
+    </div>
+  </header>
+  <main>
+    <div id="status" class="status"></div>
+    <section id="board" class="board" aria-live="polite"></section>
+  </main>
+  <dialog id="postDialog">
+    <form id="postForm" method="dialog" class="form-card">
+      <div class="form-head"><h2>게시물 올리기</h2><button type="button" class="icon-btn" data-close="postDialog">✕</button></div>
+      <label>분류<select id="category" required></select></label>
+      <label>작성자<input id="author" maxlength="30" required placeholder="이름 또는 별명" /></label>
+      <label>제목<input id="title" maxlength="80" required placeholder="게시물 제목" /></label>
+      <label>내용<textarea id="content" maxlength="3000" rows="7" placeholder="내용을 입력하세요"></textarea></label>
+      <label>링크(선택)<input id="linkUrl" type="url" placeholder="https://..." /></label>
+      <label>파일(선택, 최대 5MB)<input id="fileInput" type="file" /></label>
+      <label>수업 코드<input id="classCode" type="password" required placeholder="선생님이 알려준 코드" /></label>
+      <p class="note">제출 즉시 공개됩니다. 교사 승인 단계가 없습니다.</p>
+      <div class="form-actions"><button type="button" class="ghost" data-close="postDialog">취소</button><button id="submitPostBtn" type="submit" class="primary">바로 게시</button></div>
+    </form>
+  </dialog>
+  <dialog id="detailDialog">
+    <article class="detail-card">
+      <div class="form-head"><h2 id="detailTitle">게시물</h2><button type="button" class="icon-btn" data-close="detailDialog">✕</button></div>
+      <div id="detailBody"></div><hr /><h3>댓글</h3><div id="comments"></div>
+      <form id="commentForm" class="comment-form">
+        <input id="commentAuthor" maxlength="30" required placeholder="이름/별명" />
+        <input id="commentText" maxlength="500" required placeholder="댓글 입력" />
+        <input id="commentClassCode" type="password" required placeholder="수업 코드" />
+        <button class="primary" type="submit">댓글 등록</button>
+      </form>
+    </article>
+  </dialog>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
