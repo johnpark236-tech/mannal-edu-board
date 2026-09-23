@@ -17,7 +17,7 @@ function output_(obj,callback){const json=JSON.stringify(obj);if(callback)return
 
 function assertAdmin_(pin){
   const secret=PropertiesService.getScriptProperties().getProperty('ADMIN_PIN');
-  if(!secret||secret.length<8)throw new Error('관리자 비밀번호가 설정되지 않았습니다.');
+  if(!secret||secret.length<4)throw new Error('관리자 비밀번호가 설정되지 않았습니다.');
   if(String(pin||'')!==secret)throw new Error('관리자 비밀번호가 올바르지 않습니다.');
 }
 function findPostRow_(sh,postId){
