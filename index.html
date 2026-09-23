@@ -7,7 +7,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>AI 천안 만날 학습 동아리 게시판</title>
-  <link rel="stylesheet" href="./style.css?v=20260918-2002" />
+  <link rel="stylesheet" href="./style.css?v=20260924-edit1" />
 </head>
 <body>
   <header class="topbar">
@@ -27,14 +27,15 @@
   </main>
   <dialog id="postDialog">
     <form id="postForm" method="dialog" class="form-card">
-      <div class="form-head"><h2>게시물 올리기</h2><button type="button" class="icon-btn" data-close="postDialog">✕</button></div>
+      <div class="form-head"><h2 id="postDialogTitle">게시물 올리기</h2><button type="button" class="icon-btn" data-close="postDialog">✕</button></div>
       <label>분류<select id="category" required></select></label>
       <label>작성자<input id="author" maxlength="30" required placeholder="이름 또는 별명" /></label>
       <label>제목<input id="title" maxlength="80" required placeholder="게시물 제목" /></label>
       <label>내용<textarea id="content" maxlength="3000" rows="7" placeholder="내용을 입력하세요"></textarea></label>
       <label>링크(선택)<input id="linkUrl" type="url" placeholder="https://..." /></label>
       <label>파일(선택, 최대 5MB)<input id="fileInput" type="file" /></label>
-      <p class="note">제출 즉시 공개됩니다. 교사 승인 단계가 없습니다.</p>
+      <label id="adminPinRow" hidden>관리자 비밀번호<input id="adminPin" type="password" autocomplete="off" placeholder="관리자 비밀번호" /></label>
+      <p class="note" id="postNote">게시물은 승인 없이 바로 공개됩니다. 수정·삭제는 관리자만 가능합니다.</p>
       <div class="form-actions"><button type="button" class="ghost" data-close="postDialog">취소</button><button id="submitPostBtn" type="submit" class="primary">바로 게시</button></div>
     </form>
   </dialog>
@@ -57,6 +58,6 @@
       maxUploadMB: 5
     };
   </script>
-  <script src="./app.js?v=20260918-2132"></script>
+  <script src="./app.js?v=20260924-edit1"></script>
 </body>
 </html>
