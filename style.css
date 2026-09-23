@@ -15,3 +15,8 @@ dialog{border:0;border-radius:16px;padding:0;width:min(720px,92vw);box-shadow:0 
 .detail-card{max-height:85vh;overflow:auto}.detail-meta{font-size:12px;color:#827b87}.detail-content{white-space:pre-wrap;line-height:1.7;margin:18px 0}.detail-link{display:inline-block;margin:6px 0 14px;color:#176f9c}.comments{display:grid;gap:8px}.comment{background:#f7f5f8;border-radius:10px;padding:10px 12px}.comment b{font-size:12px}.comment p{margin:5px 0;font-size:13px}.comment small{color:#8b8490}.comment-form{display:grid;grid-template-columns:120px 1fr 120px auto;gap:7px;margin-top:12px}
 .empty{font-size:12px;color:rgba(80,50,80,.75);background:rgba(255,255,255,.34);padding:12px;border-radius:10px}
 @media(max-width:760px){.topbar{position:static;align-items:flex-start;flex-direction:column}.actions{width:100%;flex-wrap:wrap}.search{flex:1;min-width:160px}.board{display:grid;grid-template-columns:1fr;overflow:visible}.column{flex:auto;width:100%}.comment-form{grid-template-columns:1fr}.topbar h1{font-size:22px}}
+.card-actions{display:flex;gap:7px;margin-top:12px;padding-top:10px;border-top:1px solid #eee8f2}
+.card-action{flex:1;padding:7px 8px;font-size:12px;background:#f1ecfa;color:#51416c;border:1px solid #e2d9f1}
+.card-action.danger{background:#fff1f2;color:#ab3249;border-color:#f6c7d0}
+.card-action:hover{filter:brightness(.95)}
+[hidden]{display:none!important}
