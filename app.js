@@ -52,6 +52,7 @@ function openPost(cat=""){
   $("#submitPostBtn").textContent="바로 게시";
   $("#adminPinRow").hidden=true;
   $("#adminPin").required=false;
+  $("#postNote").textContent="게시물은 승인 없이 바로 공개됩니다. 수정·삭제는 관리자만 가능합니다.";
   $("#fileInput").disabled=false;
   $("#postDialog").showModal();
 }
